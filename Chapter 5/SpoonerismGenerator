@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class SpoonerismGenerator {
+    
+    public static void main(String[] args) {
+        SpoonerismGenerator generator = new SpoonerismGenerator();
+        generator.run();
+    }
+
+    private void run() {
+        // Get the two words from the user
+        String word1 = getWord("first");
+        String word2 = getWord("second");
+
+        // Find the first vowel index for both words
+        int vowelIndex1 = vowelIndex(word1);
+        int vowelIndex2 = vowelIndex(word2);
+
+        // Check if both words can be spoonerized
+        if (vowelIndex1 > 0 && vowelIndex2 > 0) {
+            // Swap the initial consonants and print the spoonerized result
+            String spoonerizedWord1 = word2.substring(0, vowelIndex2) + word1.substring(vowelIndex1);
+            String spoonerizedWord2 = word1.substring(0, vowelIndex1) + word2.substring(vowelIndex2);
+            
+            System.out.println(word1 + " and " + word2 + " spoonerized are " + spoonerizedWord1 + " " + spoonerizedWord2);
+        } else {
+            // If either word doesn't meet the criteria, print a message
+            System.out.println(word1 + " and " + word2 + " are not good words to spoonerize.");
+        }
+    }
+
+    // Method to prompt the user for a word
+    private String getWord(String order) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the " + order + " word: ");
+        return scanner.nextLine().trim();
+    }
+
+    // Method to find the index of the first vowel in a word
+    private int vowelIndex(String word) {
+        String vowels = "AEIOUaeiou";
+        for (int i = 0; i < word.length(); i++) {
+            if (vowels.indexOf(word.charAt(i)) != -1) {
+                return i;
+            }
+        }
+        return -1;
+     }
+   }
